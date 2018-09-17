@@ -5,33 +5,30 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using A05DockerNorthwindCore.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace A05DockerNorthwindCore.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly NorthwindContext ctx;
+
+        public HomeController(NorthwindContext northwindContext)
+        {
+            ctx = northwindContext;
+        }
+
         public IActionResult Index()
         {
+            ViewData["country"] = new SelectList(ctx.Customers.Select(cust => cust.Country).Distinct());
             return View();
         }
 
-        public IActionResult About()
+        public IActionResult FilterCustomers(string country)
         {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
+            //TODO: hier geht's weiter. Loading-strategie anpassen
+            var customers = ctx.Customers.Where(cust => cust.Country == country);
+            return PartialView("_customers", customers);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
