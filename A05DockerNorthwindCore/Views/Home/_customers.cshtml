@@ -6,28 +6,31 @@
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(customer => customer.Country)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(customer => customer.City)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(customer => customer.ContactName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(customer => customer.Phone)
-                </th>
-                <th>
-                    Details
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @Html.DisplayForModel()
-        </tbody>
-    </table>
+    <form asp-controller="Home" asp-action="GetOrders" data-ajax="true" data-ajax-update="#customerResults">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(customer => customer.CompanyName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(customer => customer.City)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(customer => customer.ContactName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(customer => customer.Phone)
+                    </th>
+                    <th>
+                        Details
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @Html.DisplayForModel()
+            </tbody>
+        </table>
+        <input type="submit" value="Go" />
+    </form>
 }

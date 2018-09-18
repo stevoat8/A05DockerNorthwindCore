@@ -1,0 +1,6 @@
+﻿@model IEnumerable<string>
+
+<form asp-controller="Home" asp-action="GetOrderDetails" data-ajax="true" data-ajax-update="#orderDetails">
+    @Html.DropDownList("orderId")
+    <input type="submit" value="go" />
+</form>

@@ -1,0 +1,19 @@
+﻿@model Customers
+
+<tr>
+    <td>
+        @Html.DisplayFor(customer => customer.CompanyName)
+    </td>
+    <td>
+        @Html.DisplayFor(customer => customer.City)
+    </td>
+    <td>
+        @Html.DisplayFor(customer => customer.ContactName)
+    </td>
+    <td>
+        @Html.DisplayFor(customer => customer.Phone)
+    </td>
+    <td>
+        <input type="radio" name="customerId" value="@Model.CustomerId" />
+    </td>
+</tr>
