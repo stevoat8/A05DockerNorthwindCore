@@ -21,11 +21,11 @@ namespace A05DockerNorthwindCore.Controllers
 
         public IActionResult Index()
         {
-            ViewData["country"] = new SelectList(ctx.Customers.Select(cust => cust.Country).Distinct());
+            ViewData["countries"] = new SelectList(ctx.Customers.Select(cust => cust.Country).Distinct());
             return View();
         }
 
-        public IActionResult FilterCustomers(string country)
+        public IActionResult GetCustomers(string country)
         {
             var customers = ctx.Customers
                 .Where(cust => cust.Country == country)
@@ -35,36 +35,23 @@ namespace A05DockerNorthwindCore.Controllers
 
         public IActionResult GetOrders(string customerId)
         {
-            var orders = ctx.Orders
+            List<string> orders = ctx.Orders
                 .Where(o => o.CustomerId == customerId)
                 .OrderBy(o => o.OrderDate)
-                .Select(o => o.OrderId)
+                .Select(o => o.OrderId.ToString())
                 .ToList();
-            ViewData["orderId"] = new SelectList(orders);
-            return PartialView("_orders");
+            return PartialView("_orders", orders);
         }
 
-        public IActionResult GetOrderDetails(int orderId)
+        public IActionResult GetDetailedOrder(int orderId)
         {
-            Orders order = ctx.Orders
+            Orders detailedOrder = ctx.Orders
                 .Where(o => o.OrderId == orderId)
                 .Include(o => o.OrderDetails)
                 .Include(o => o.Employee)
                 .FirstOrDefault();
 
-            //string bestellt = order.OrderDate.HasValue 
-            //    ? order.OrderDate.Value.ToShortDateString() 
-            //    : "-";
-            //string shipped = order.ShippedDate.HasValue
-            //    ? order.ShippedDate.Value.ToShortDateString()
-            //    : "-";
-
-            //OrderDetails details = order.OrderDetails.First();
-            //string totalPrice = (details.UnitPrice * details.Quantity * (decimal)details.Discount).ToString("C2");
-
-            //string employee = order.Employee.FirstName + " " + order.Employee.LastName;
-
-            return PartialView("_orderDetails", order);
+            return PartialView("_orderDetails", detailedOrder);
         }
 
         #region Error

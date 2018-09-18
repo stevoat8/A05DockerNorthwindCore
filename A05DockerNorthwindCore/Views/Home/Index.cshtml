@@ -6,9 +6,7 @@
 
 <h2>Northwind - Informationssystem</h2>
 Herkunftsland:
-<form asp-controller="Home" asp-action="FilterCustomers" data-ajax="true" data-ajax-update="#customerResults">
-    @Html.DropDownList("country")
-    <input type="submit" value="go"/>
-</form>
-<div id="customerResults"></div>
+@Html.DropDownList("countries")
+<div id="customerList"></div>
+<div id="orderList"></div>
 <div id="orderDetails"></div>
