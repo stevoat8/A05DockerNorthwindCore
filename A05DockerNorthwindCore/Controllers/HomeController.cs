@@ -50,7 +50,6 @@ namespace A05DockerNorthwindCore.Controllers
                 .Include(o => o.OrderDetails)
                 .Include(o => o.Employee)
                 .FirstOrDefault();
-
             return PartialView("_orderDetails", detailedOrder);
         }
 
